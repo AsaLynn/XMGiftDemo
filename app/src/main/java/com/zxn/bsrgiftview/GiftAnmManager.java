@@ -45,6 +45,11 @@ public class GiftAnmManager {
             R.drawable.gift_car_t1,
             R.drawable.gift_car_t2,
     };
+
+    int[] bearIds = new int[]{
+            R.drawable.ic_gift_bear1,
+            R.drawable.ic_gift_bear2,
+    };
     int[] dragonIds = new int[]{
             R.drawable.dragon1,
             R.drawable.dragon2,
@@ -227,6 +232,76 @@ public class GiftAnmManager {
                         carTwo.setDuring(during);
                         carTwo.setInterpolator(new LinearInterpolator());
                         carTwo.setRes(context, car2Ids[index++ % 2]);
+                        carTwo.setAdjustScaleInScreen(1f);
+                        carTwo.setAntiAlias(true);
+                        bsrGiftView.addBSRPathPointAndDraw(carTwo);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+        BSRPathView bsrPathView = new BSRPathView();
+        bsrPathView.setChild(bsrGiftView);
+        bsrPathView.setPositionInScreen(true);
+        bsrPathView.addPositionControlPoint(0f, 0.3f);
+        bsrPathView.addPositionControlPoint(0.06f, 0.3f);
+        bsrPathView.addPositionControlPoint(0.06f, 0.3f);
+        bsrPathView.addPositionControlPoint(0.06f, 0.3f);
+        bsrPathView.addPositionControlPoint(0.06f, 0.3f);
+        bsrPathView.addPositionControlPoint(0.06f, 0.3f);
+        bsrPathView.addPositionControlPoint(0.06f, 0.3f);
+        bsrPathView.addPositionControlPoint(0.06f, 0.3f);
+        bsrPathView.addScaleControl(0.2f);
+        bsrPathView.addScaleControl(0.8f);
+        bsrPathView.addScaleControl(0.8f);
+        bsrPathView.addScaleControl(0.8f);
+        bsrPathView.addScaleControl(0.8f);
+        bsrPathView.addScaleControl(0.8f);
+        bsrPathView.addScaleControl(0.8f);
+        bsrPathView.addScaleControl(10f);
+        bsrPathView.setXPercent(0f);
+        bsrPathView.setYPercent(0f);
+        bsrPathView.setDuring(2000);
+        bsrPathView.setInterpolator(new AccelerateInterpolator());
+        bsrPathView.addEndListeners(new OnAnmEndListener() {
+            @Override
+            public void onAnimationEnd(BSRPathBase bsrPathPoint) {
+                subscription[0].cancel();
+            }
+        });
+        giftLayout.addChild(bsrPathView);
+    }
+
+    public void showBearTwo() {
+        final BSRGiftView bsrGiftView = new BSRGiftView(context);
+        bsrGiftView.setAlphaTrigger(-1);
+        final int during = 300;
+        final Subscription[] subscription = new Subscription[1];
+        Flowable.interval(during, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new Subscriber<Long>() {
+                    int index = 0;
+
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        subscription[0] = s;
+                        s.request(Long.MAX_VALUE);
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        BSRPathPoint carTwo = new BSRPathPoint();
+                        carTwo.setDuring(during);
+                        carTwo.setInterpolator(new LinearInterpolator());
+                        carTwo.setRes(context, bearIds[index++ % 2]);
                         carTwo.setAdjustScaleInScreen(1f);
                         carTwo.setAntiAlias(true);
                         bsrGiftView.addBSRPathPointAndDraw(carTwo);

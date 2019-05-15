@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (time++ % 8) {
+                switch (time++ % 9) {
                     case 0:
                         giftAnmManager.showKiss();
                         break;
@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 7:
                         giftAnmManager.showPositionInScreen();
+                        break;
+                    case 8:
+                        giftAnmManager.showBearTwo();
                         break;
 
                 }
